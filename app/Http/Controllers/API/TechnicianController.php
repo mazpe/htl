@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Vehicle;
+use App\Models\Technician;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
 use Validator;
 
-class VehicleController extends BaseController
+class TechnicianController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,11 @@ class VehicleController extends BaseController
      */
     public function index()
     {
-        $vehicles = Vehicle::all();
+        $technicians = Technician::all();
 
         return $this->sendResponse(
-            $vehicles->toArray(),
-            'Vehicles retrieved successfully.'
+            $technicians->toArray(),
+            'Technicians retrieved successfully.'
         );
     }
 
@@ -36,10 +36,9 @@ class VehicleController extends BaseController
 
         // TODO: validate make and models from a list?
         $validator = Validator::make($input, [
-            'year'  => 'required|integer',
-            'make'  => 'required',
-            'model' => 'required',
-            'vin'   => 'required|unique:vehicles|size:17'
+            'first_name'   => 'required',
+            'last_name'    => 'required',
+            'truck_number' => 'required'
         ]);
 
         if($validator->fails()){
@@ -50,11 +49,11 @@ class VehicleController extends BaseController
             );
         }
 
-        $vehicle = Vehicle::create($input);
+        $technician = Technician::create($input);
 
         return $this->sendResponse(
-            $vehicle->toArray(),
-            'Vehicle created successfully.'
+            $technician->toArray(),
+            'Technician created successfully.'
         );
     }
 
@@ -66,15 +65,15 @@ class VehicleController extends BaseController
      */
     public function show($id)
     {
-        $vehicle = Vehicle::find($id);
+        $technician = Technician::find($id);
 
-        if (is_null($vehicle)) {
-            return $this->sendError('Vehicle not found.');
+        if (is_null($technician)) {
+            return $this->sendError('Technician not found.');
         }
 
         return $this->sendResponse(
-            $vehicle->toArray(),
-            'Vehicle retrieved successfully.'
+            $technician->toArray(),
+            'Technician retrieved successfully.'
         );
     }
 
@@ -82,50 +81,49 @@ class VehicleController extends BaseController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Vehicle $vehicle
+     * @param Technician $technician
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vehicle $vehicle)
+    public function update(Request $request, Technician $technician)
     {
+
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'year'  => 'required|integer',
-            'make'  => 'required',
-            'model' => 'required',
-            'vin'   => 'required|unique:vehicles|size:17'
+            'first_name'   => 'required',
+            'last_name'    => 'required',
+            'truck_number' => 'required'
         ]);
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $vehicle->year = $input['year'];
-        $vehicle->make = $input['make'];
-        $vehicle->model = $input['model'];
-        $vehicle->vin = $input['vin'];
-        $vehicle->save();
+        $technician->first_name = $input['first_name'];
+        $technician->last_name = $input['last_name'];
+        $technician->truck_number = $input['truck_number'];
+        $technician->save();
 
         return $this->sendResponse(
-            $vehicle->toArray(),
-            'Vehicle updated successfully.'
+            $technician->toArray(),
+            'Technician updated successfully.'
         );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Vehicle $vehicle
+     * @param Technician $technician
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Vehicle $vehicle)
+    public function destroy(Technician $technician)
     {
-        $vehicle->delete();
+        $technician->delete();
 
         return $this->sendResponse(
-            $vehicle->toArray(),
-            'Vehicle deleted successfully.'
+            $technician->toArray(),
+            'Technician deleted successfully.'
         );
     }
 }
