@@ -34,7 +34,6 @@ class KeyController extends BaseController
     {
         $input = $request->all();
 
-        // TODO: validate make and models from a list?
         $validator = Validator::make($input, [
             'vehicle_id'  => 'required|integer',
             'item_name'   => 'required',

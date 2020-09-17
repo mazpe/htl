@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Technician;
+use App\Models\Order;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Validator;
 
-class TechnicianController extends BaseController
+
+class OrderController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +18,11 @@ class TechnicianController extends BaseController
      */
     public function index()
     {
-        $technicians = Technician::all();
+        $orders = Order::all();
 
         return $this->sendResponse(
-            $technicians->toArray(),
-            'Technicians retrieved successfully.'
+            $orders->toArray(),
+            'Orders retrieved successfully.'
         );
     }
 
@@ -35,9 +37,10 @@ class TechnicianController extends BaseController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'first_name'   => 'required',
-            'last_name'    => 'required',
-            'truck_number' => 'required'
+            'vehicle_id'    => 'required|integer',
+            'key_id'        => 'required|integer',
+            'technician_id' => 'required|integer',
+            'status'        =>  ['required',Rule::in(Order::STATUSES)]
         ]);
 
         if($validator->fails()){
@@ -48,11 +51,11 @@ class TechnicianController extends BaseController
             );
         }
 
-        $technician = Technician::create($input);
+        $order = Order::create($input);
 
         return $this->sendResponse(
-            $technician->toArray(),
-            'Technician created successfully.'
+            $order->toArray(),
+            'Order created successfully.'
         );
     }
 
@@ -64,15 +67,15 @@ class TechnicianController extends BaseController
      */
     public function show($id)
     {
-        $technician = Technician::find($id);
+        $order = Order::find($id);
 
-        if (is_null($technician)) {
-            return $this->sendError('Technician not found.');
+        if (is_null($order)) {
+            return $this->sendError('Order not found.');
         }
 
         return $this->sendResponse(
-            $technician->toArray(),
-            'Technician retrieved successfully.'
+            $order->toArray(),
+            'Order retrieved successfully.'
         );
     }
 
@@ -80,49 +83,52 @@ class TechnicianController extends BaseController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Technician $technician
+     * @param Order $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Technician $technician)
+    public function update(Request $request, Order $order)
     {
 
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'first_name'   => 'required',
-            'last_name'    => 'required',
-            'truck_number' => 'required'
+            'vehicle_id'    => 'required|integer',
+            'key_id'        => 'required|integer',
+            'technician_id' => 'required|integer',
+            'status'        =>  ['required', Rule::in(Order::STATUSES)]
         ]);
+
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $technician->first_name = $input['first_name'];
-        $technician->last_name = $input['last_name'];
-        $technician->truck_number = $input['truck_number'];
-        $technician->save();
+        $order->vehicle_id = $input['vehicle_id'];
+        $order->key_id = $input['key_id'];
+        $order->technician_id = $input['technician_id'];
+        $order->note = $input['note'] ?? null;
+        $order->save();
 
         return $this->sendResponse(
-            $technician->toArray(),
-            'Technician updated successfully.'
+            $order->toArray(),
+            'Order updated successfully.'
         );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Technician $technician
+     * @param Order $order
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Technician $technician)
+    public function destroy(Order $order)
     {
-        $technician->delete();
+        $order->delete();
 
         return $this->sendResponse(
-            $technician->toArray(),
-            'Technician deleted successfully.'
+            $order->toArray(),
+            'Order deleted successfully.'
         );
     }
 }
