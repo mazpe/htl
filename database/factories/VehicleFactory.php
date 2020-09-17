@@ -17,7 +17,7 @@ $factory->define(Vehicle::class, function (Faker $faker) {
         'year'  => $faker->biasedNumberBetween(1998, 2017, 'sqrt'),
         'make'  => $v['brand'],
         'model' => $v['model'],
-        'vin'   => $faker->vin
+        'vin'   => $faker->unique()->vin
     ];
 });
 
