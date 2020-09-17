@@ -14,6 +14,7 @@ use Faker\Generator as Faker;
 $vehicle = Vehicle::inRandomOrder()->first();
 
 $factory->define(Key::class, function (Faker $faker)  {
+
     return [
         'item_name'   => $faker->unique()->company,
         'description' => $faker->sentence,

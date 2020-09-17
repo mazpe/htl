@@ -11,7 +11,9 @@ class Key extends Model
      *
      * @var array
      */
-    protected $fillable = ['item_name, description, price, active'];
+    protected $fillable = [
+        'vehicle_id','item_name', 'description', 'price', 'active'
+    ];
 
     /**
      * A key belongs to a vehicle
