@@ -15,7 +15,7 @@ $vehicle = Vehicle::inRandomOrder()->first();
 
 $factory->define(Key::class, function (Faker $faker)  {
     return [
-        'item_name'   => $faker->company,
+        'item_name'   => $faker->unique()->company,
         'description' => $faker->sentence,
         'price'       =>
             $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 100)

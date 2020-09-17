@@ -118,10 +118,10 @@ class AuthenticationTest extends TestCase
         $outh_client = OauthClient::findOrFail($oauth_client_id);
         // Oauth login data
         $login = [
-            'username' => $registration['email'],
-            'password' => $registration['password'],
-            'grant_type' => 'password',
-            'client_id' => $oauth_client_id,
+            'username'      => $registration['email'],
+            'password'      => $registration['password'],
+            'grant_type'    => 'password',
+            'client_id'     => $oauth_client_id,
             'client_secret' => $outh_client->secret
         ];
         // Authenticate the login and get the access_token and refresh_token
