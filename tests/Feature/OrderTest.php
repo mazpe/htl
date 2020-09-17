@@ -218,7 +218,7 @@ class OrderTest extends TestCase
             'status'        => $order1->status
         ];
 
-        $this->json('PUT', 'api/orders/' . $order_update1->id, $order_update, ['Accept' => 'application/json'])
+        $this->json('PUT', 'api/orders/' . $order1->id, $order_update, ['Accept' => 'application/json'])
             ->assertStatus(200)
             ->assertJson([
                 'success' => true,
