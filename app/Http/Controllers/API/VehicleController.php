@@ -19,6 +19,9 @@ class VehicleController extends BaseController
     {
         $vehicles = Vehicle::all();
 
-        return $this->sendResponse($vehicles->toArray(), 'Vehicles retrieved successfully.');
+        return $this->sendResponse(
+            $vehicles->toArray(),
+            'Vehicles retrieved successfully.'
+        );
     }
 }
