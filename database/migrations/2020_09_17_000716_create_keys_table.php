@@ -25,8 +25,7 @@ class CreateKeysTable extends Migration
             // Enable Soft Deletes (optional)
             $table->softDeletes();
             // Foreign Key Constrains
-            $table->foreign('vehicle_id')
-                ->references('id')->on('vehicles');
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
         });
     }
 

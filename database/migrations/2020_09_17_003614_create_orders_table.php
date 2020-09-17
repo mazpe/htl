@@ -21,6 +21,9 @@ class CreateOrdersTable extends Migration
             $table->string('status');
             $table->text('note')->nullable();
             $table->timestamps();
+            // Enable Soft Deletes (optional)
+            $table->softDeletes();
+            // Foreign Keys Constrains
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->foreign('key_id')->references('id')->on('keys');
             $table->foreign('technician_id')->references('id')->on('technicians');
