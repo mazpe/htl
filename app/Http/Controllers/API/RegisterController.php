@@ -25,7 +25,11 @@ class RegisterController extends BaseController
         ]);
 
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+            return $this->sendError(
+                'Validation Error.',
+                $validator->errors(),
+                422
+            );
         }
 
         // Gather inputs and encrypt the password
@@ -36,9 +40,14 @@ class RegisterController extends BaseController
         $user = User::create($input);
 
         // Create the token (optionally we can add scopes here)
-        $success['token'] =  $user->createToken('HTL')->accessToken;
+        $success['token'] =  $user->createToken('accessToken')->accessToken;
         $success['name'] =  $user->name;
+        $success['email'] = $user->email;
 
-        return $this->sendResponse($success, 'User register successfully.');
+        return $this->sendResponse(
+            $success,
+            'User register successfully.',
+            201
+        );
     }
 }
