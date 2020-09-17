@@ -18,4 +18,5 @@ Route::post('register', 'API\RegisterController@register');
 Route::middleware('auth:api')->group( function () {
     Route::resource('vehicles', 'API\VehicleController');
     Route::resource('keys', 'API\KeyController');
+    Route::resource('technicians', 'API\TechnicianController');
 });
