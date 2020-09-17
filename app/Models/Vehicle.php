@@ -12,4 +12,12 @@ class Vehicle extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * A vehicle has many keys
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function keys() {
+        return $this->hasMany('App\Models\Key');
+    }
 }

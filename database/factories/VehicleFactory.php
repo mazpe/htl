@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
 /**
- * Define the factory to create vehicles
+ * Define the factory to create Vehicles
  */
 $factory->define(Vehicle::class, function (Faker $faker) {
     // Add Faker Provider for Cars
@@ -14,10 +14,10 @@ $factory->define(Vehicle::class, function (Faker $faker) {
     $v = $faker->vehicleArray();
 
     return [
-        'year' => $faker->biasedNumberBetween(1998,2017, 'sqrt'),
-        'make' => $v['brand'],
+        'year'  => $faker->biasedNumberBetween(1998, 2017, 'sqrt'),
+        'make'  => $v['brand'],
         'model' => $v['model'],
-        'vin' => $faker->vin
+        'vin'   => $faker->vin
     ];
 });
 
