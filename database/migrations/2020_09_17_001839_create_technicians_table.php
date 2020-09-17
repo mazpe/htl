@@ -18,7 +18,7 @@ class CreateTechniciansTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->smallInteger('truck_number');
-            $table->boolean('active');
+            $table->boolean('active')->default(1);
             $table->timestamps();
             // Enable Soft Deletes (optional)
             $table->softDeletes();

@@ -19,7 +19,7 @@ class CreateVehiclesTable extends Migration
             $table->string('make');
             $table->string('model');
             $table->string('vin', 17)->unique();
-            $table->boolean('active');
+            $table->boolean('active')->default(1);
             $table->timestamps();
             // Enable Soft Deletes (optional)
             $table->softDeletes();

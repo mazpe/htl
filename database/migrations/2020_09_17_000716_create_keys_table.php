@@ -20,7 +20,7 @@ class CreateKeysTable extends Migration
             $table->text('description')->nullable();
             // Price can range up to $99,999.99
             $table->decimal('price',7,2)->default(0.00);
-            $table->boolean('active');
+            $table->boolean('active')->default(1);
             $table->timestamps();
             // Enable Soft Deletes (optional)
             $table->softDeletes();
