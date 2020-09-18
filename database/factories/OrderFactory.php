@@ -24,7 +24,7 @@ $factory->define(Order::class, function (Faker $faker) {
         'vehicle_id'   => $vehicle->id,
         'key_id'    => $key->id,
         'technician_id' => $technician->id,
-        'status'    => 1,
+        'status'    =>  $faker->randomElement(Order::STATUSES),
         'note'  => $faker->sentence
     ];
 

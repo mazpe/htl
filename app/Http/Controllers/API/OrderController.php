@@ -101,7 +101,6 @@ class OrderController extends BaseController
             'status'        =>  ['required', Rule::in(Order::STATUSES)]
         ]);
 
-
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }

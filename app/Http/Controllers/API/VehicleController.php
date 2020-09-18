@@ -79,6 +79,19 @@ class VehicleController extends BaseController
         );
     }
 
+    public function keys($vehicle_id) {
+        $vehicle = Vehicle::find($vehicle_id);
+
+        if (is_null($vehicle)) {
+            return $this->sendError('Vehicle not found.');
+        }
+
+        return $this->sendResponse(
+            $vehicle->keys->toArray(),
+            'Vehicle Keys retrieved successfully.'
+        );
+    }
+
     /**
      * Update the specified resource in storage.
      *
