@@ -29,7 +29,7 @@ class Order extends Model
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function technician() {
-        return $this->belongsTo('App\Models\Order');
+        return $this->belongsTo('App\Models\Technician');
     }
 
     /**

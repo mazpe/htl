@@ -18,7 +18,10 @@ class OrderController extends BaseController
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::with('vehicle')
+            ->with('key')
+            ->with('technician')
+            ->get();
 
         return $this->sendResponse(
             $orders->toArray(),
