@@ -1,0 +1,1 @@
+DROP DATABASEE IF EXISTS `homestead`;

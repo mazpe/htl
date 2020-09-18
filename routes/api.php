@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::post('register', 'API\RegisterController@register');
 
 Route::middleware('auth:api')->group( function () {
+    Route::get('vehicles/{id}/keys', 'API\VehicleController@keys');
     Route::resource('vehicles', 'API\VehicleController');
     Route::resource('keys', 'API\KeyController');
     Route::resource('technicians', 'API\TechnicianController');
