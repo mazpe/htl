@@ -40,7 +40,7 @@ class TechnicianController extends BaseController
             'truck_number' => 'required'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $this->sendError(
                 'Validation Error.',
                 $validator->errors(),
@@ -94,7 +94,7 @@ class TechnicianController extends BaseController
             'truck_number' => 'required'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
 

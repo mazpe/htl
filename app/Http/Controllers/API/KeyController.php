@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\Key;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Validator;
 
 class KeyController extends BaseController
@@ -36,12 +37,12 @@ class KeyController extends BaseController
 
         $validator = Validator::make($input, [
             'vehicle_id'  => 'required|integer',
-            'item_name'   => 'required',
+            'item_name'   => 'required|unique:keys',
             'description' => 'required',
             'price'       => 'required|numeric'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $this->sendError(
                 'Validation Error.',
                 $validator->errors(),
@@ -86,17 +87,19 @@ class KeyController extends BaseController
      */
     public function update(Request $request, Key $key)
     {
-
         $input = $request->all();
 
         $validator = Validator::make($input, [
             'vehicle_id'  => 'required|integer',
-            'item_name'   => 'required',
+            'item_name'   => [
+                'required',
+                Rule::unique('keys')->ignore($key->id)
+            ],
             'description' => 'required',
             'price'       => 'required|numeric'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
 

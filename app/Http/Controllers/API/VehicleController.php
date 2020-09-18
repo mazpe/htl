@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\Vehicle;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Validator;
 
 class VehicleController extends BaseController
@@ -42,7 +43,7 @@ class VehicleController extends BaseController
             'vin'   => 'required|unique:vehicles|size:17'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $this->sendError(
                 'Validation Error.',
                 $validator->errors(),
@@ -93,10 +94,13 @@ class VehicleController extends BaseController
             'year'  => 'required|integer',
             'make'  => 'required',
             'model' => 'required',
-            'vin'   => 'required|unique:vehicles|size:17'
+            'vin'   => [
+                'required','size:17',
+                Rule::unique('vehicles')->ignore($vehicle->id)
+            ],
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
